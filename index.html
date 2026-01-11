@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>World Culture Quiz</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#e6f0ff;
+    padding:20px;
+}
+.quiz-box{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px gray;
+}
+h1{
+    text-align:center;
+    color:#003366;
+}
+.question{
+    margin:15px 0;
+    padding:10px;
+    background:#f0f6ff;
+    border-radius:8px;
+}
+button{
+    background:#003366;
+    color:white;
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+}
+button:hover{
+    background:#0055cc;
+}
+#result{
+    margin-top:20px;
+    font-size:20px;
+    font-weight:bold;
+    text-align:center;
+    color:green;
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+<h1>🌍 World Culture Quiz – Class 6</h1>
+
+<form id="quizForm">
+
+<div class="question">1. A Stupa is a —
+<br><input type="radio" name="q1" value="1"> Buddhist place of worship
+<br><input type="radio" name="q1" value="0"> Stadium
+<br><input type="radio" name="q1" value="0"> Ornament
+</div>
+
+<div class="question">2. Shia and Sunni belong to —
+<br><input type="radio" name="q2" value="1"> Islam
+<br><input type="radio" name="q2" value="0"> Hinduism
+<br><input type="radio" name="q2" value="0"> Buddhism
+</div>
+
+<div class="question">3. Benches in a church are called —
+<br><input type="radio" name="q3" value="1"> Pews
+<br><input type="radio" name="q3" value="0"> Bells
+<br><input type="radio" name="q3" value="0"> Lamps
+</div>
+
+<div class="question">4. Roman Catholics follow —
+<br><input type="radio" name="q4" value="1"> Christianity
+<br><input type="radio" name="q4" value="0"> Islam
+<br><input type="radio" name="q4" value="0"> Judaism
+</div>
+
+<div class="question">5. Parsis follow —
+<br><input type="radio" name="q5" value="1"> Zoroastrianism
+<br><input type="radio" name="q5" value="0"> Hinduism
+<br><input type="radio" name="q5" value="0"> Buddhism
+</div>
+
+<div class="question">6. Ban-Mitzvah belongs to —
+<br><input type="radio" name="q6" value="1"> Judaism
+<br><input type="radio" name="q6" value="0"> Hinduism
+<br><input type="radio" name="q6" value="0"> Islam
+</div>
+
+<div class="question">7. God is present in all beings is taught by —
+<br><input type="radio" name="q7" value="1"> Hinduism
+<br><input type="radio" name="q7" value="0"> Islam
+<br><input type="radio" name="q7" value="0"> Christianity
+</div>
+
+<div class="question">8. Jews mainly live in —
+<br><input type="radio" name="q8" value="1"> Israel
+<br><input type="radio" name="q8" value="0"> Pakistan
+<br><input type="radio" name="q8" value="0"> Nepal
+</div>
+
+<div class="question">9. Swahili is spoken in —
+<br><input type="radio" name="q9" value="1"> Kenya
+<br><input type="radio" name="q9" value="0"> Egypt
+<br><input type="radio" name="q9" value="0"> Iran
+</div>
+
+<div class="question">10. Maori is spoken in —
+<br><input type="radio" name="q10" value="1"> New Zealand
+<br><input type="radio" name="q10" value="0"> Australia
+<br><input type="radio" name="q10" value="0"> Sri Lanka
+</div>
+
+<div class="question">11. Spanish is spoken in —
+<br><input type="radio" name="q11" value="1"> Chile
+<br><input type="radio" name="q11" value="0"> Israel
+<br><input type="radio" name="q11" value="0"> Iran
+</div>
+
+<div class="question">12. Hamburger belongs to —
+<br><input type="radio" name="q12" value="1"> USA
+<br><input type="radio" name="q12" value="0"> Italy
+<br><input type="radio" name="q12" value="0"> Japan
+</div>
+
+<div class="question">13. Sushi belongs to —
+<br><input type="radio" name="q13" value="1"> Japan
+<br><input type="radio" name="q13" value="0"> China
+<br><input type="radio" name="q13" value="0"> Mexico
+</div>
+
+<div class="question">14. Baklava is from —
+<br><input type="radio" name="q14" value="1"> Turkey
+<br><input type="radio" name="q14" value="0"> India
+<br><input type="radio" name="q14" value="0"> USA
+</div>
+
+<div class="question">15. Nasi Goreng is from —
+<br><input type="radio" name="q15" value="1"> Indonesia
+<br><input type="radio" name="q15" value="0"> China
+<br><input type="radio" name="q15" value="0"> UAE
+</div>
+
+<br>
+<button type="button" onclick="check()">Submit Quiz</button>
+
+<div id="result"></div>
+
+</form>
+</div>
+
+<script>
+function check(){
+    let total = 15;
+    let score = 0;
+    for(let i=1;i<=15;i++){
+        let q = document.querySelector('input[name="q'+i+'"]:checked');
+        if(q && q.value=="1"){
+            score++;
+        }
+    }
+    document.getElementById("result").innerHTML = 
+    "You scored " + score + " out of " + total;
+}
+</script>
+
+</body>
+</html>
