@@ -1,172 +1,252 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>World Culture Quiz</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mixed Revision Quiz</title>
 <style>
-body{
-    font-family: Arial, sans-serif;
-    background:#e6f0ff;
-    padding:20px;
-}
-.quiz-box{
-    max-width:800px;
-    margin:auto;
-    background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0px 0px 10px gray;
-}
-h1{
-    text-align:center;
-    color:#003366;
-}
-.question{
-    margin:15px 0;
-    padding:10px;
-    background:#f0f6ff;
-    border-radius:8px;
-}
-button{
-    background:#003366;
-    color:white;
-    padding:12px 25px;
-    border:none;
-    border-radius:8px;
-    font-size:16px;
-    cursor:pointer;
-}
-button:hover{
-    background:#0055cc;
-}
-#result{
-    margin-top:20px;
-    font-size:20px;
-    font-weight:bold;
-    text-align:center;
-    color:green;
-}
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#eef5ff,#f9fbff);
+    color:#1f2937;line-height:1.5;
+  }
+  .wrap{max-width:1000px;margin:auto;padding:22px 14px 50px}
+  .hero{
+    background:linear-gradient(135deg,#3157d5,#6846c7);
+    color:white;border-radius:22px;padding:28px 24px;
+    box-shadow:0 12px 30px rgba(40,60,120,.18);
+  }
+  .hero h1{margin:0 0 6px;font-size:clamp(25px,4vw,38px)}
+  .hero p{margin:0;opacity:.94}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .pill{background:rgba(255,255,255,.16);padding:8px 13px;border-radius:30px;font-size:14px}
+  section{
+    background:white;margin-top:18px;padding:22px;
+    border-radius:18px;box-shadow:0 7px 22px rgba(30,50,90,.08);
+  }
+  h2{margin:0 0 16px;color:#263f9d;font-size:23px}
+  .q{
+    border:1px solid #e4e9f2;border-radius:15px;padding:17px;
+    margin:14px 0;background:#fcfdff;
+  }
+  .q-title{font-weight:700;margin-bottom:12px}
+  .options{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  button.option{
+    border:1px solid #d6ddea;background:#fff;padding:11px 13px;
+    border-radius:11px;text-align:left;cursor:pointer;font-size:15px;
+    transition:.15s;
+  }
+  button.option:hover{border-color:#6a7ee0;background:#f5f7ff}
+  button.option.correct{background:#e9f9ef;border-color:#28a75c;color:#116b38}
+  button.option.wrong{background:#fff0f0;border-color:#df4c4c;color:#9b2020}
+  .feedback{display:none;margin-top:10px;font-size:14px;font-weight:600}
+  .feedback.show{display:block}
+  .tf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tf button{font-weight:700;text-align:center!important}
+  .blank{
+    display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:9px
+  }
+  .blank input{
+    width:min(100%,310px);padding:11px 12px;border:1px solid #cbd5e1;
+    border-radius:10px;font-size:15px;outline:none;
+  }
+  .blank input:focus{border-color:#5068d8;box-shadow:0 0 0 3px #e9edff}
+  .check{
+    border:0;background:#3157d5;color:white;padding:10px 15px;
+    border-radius:10px;cursor:pointer;font-weight:700;
+  }
+  .check:hover{background:#2747b4}
+  .result{font-weight:700;margin-top:8px}
+  .helpbox{
+    background:#fff8df;border:1px dashed #d5ae34;border-radius:14px;
+    padding:15px;margin-bottom:16px
+  }
+  .helpbox strong{color:#765900}
+  .words{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .word{background:#fff;border:1px solid #e6ce77;padding:6px 10px;border-radius:20px;font-size:14px}
+  .submit{
+    width:100%;margin-top:22px;border:0;border-radius:14px;
+    background:#172554;color:white;padding:15px;font-size:17px;font-weight:700;cursor:pointer
+  }
+  #score{
+    display:none;text-align:center;background:#ecfdf5;color:#12653a;
+    border:1px solid #9ee2bd;padding:18px;border-radius:14px;margin-top:18px;font-size:19px
+  }
+  .note{font-size:13px;color:#64748b;margin-top:10px}
+  @media(max-width:680px){
+    .options,.tf-grid{grid-template-columns:1fr}
+    section{padding:16px}
+    .hero{padding:22px 18px}
+  }
 </style>
 </head>
-
 <body>
+<div class="wrap">
+  <div class="hero">
+    <h1>Mixed Revision Quiz</h1>
+    <p>Environment Around • Chemistry • Mobile Mania • Smooth Working • World Around</p>
+    <div class="stats">
+      <span class="pill">15 MCQs</span>
+      <span class="pill">5 True / False</span>
+      <span class="pill">10 Fill in the Blanks</span>
+      <span class="pill">Instant checking</span>
+    </div>
+  </div>
 
-<div class="quiz-box">
-<h1>🌍 World Culture Quiz – Class 6</h1>
+  <section>
+    <h2>Part A — Multiple Choice Questions</h2>
+    <div id="mcqs"></div>
+  </section>
 
-<form id="quizForm">
+  <section>
+    <h2>Part B — True or False</h2>
+    <div id="tfs"></div>
+  </section>
 
-<div class="question">1. A Stupa is a —
-<br><input type="radio" name="q1" value="1"> Buddhist place of worship
-<br><input type="radio" name="q1" value="0"> Stadium
-<br><input type="radio" name="q1" value="0"> Ornament
-</div>
+  <section>
+    <h2>Part C — Fill in the Blanks</h2>
+    <div class="helpbox">
+      <strong>Help Box:</strong>
+      <div class="words">
+        <span class="word">EURO</span><span class="word">TRIBES</span>
+        <span class="word">GRAPHITE</span><span class="word">BLUETOOTH</span>
+        <span class="word">MMS</span><span class="word">ACETONE</span>
+        <span class="word">FLUORINE</span><span class="word">SACCHARINE</span>
+        <span class="word">PERISCOPE</span><span class="word">NAPHTHALENE</span>
+      </div>
+    </div>
+    <div id="blanks"></div>
+    <p class="note">Answers are checked without case sensitivity. Example: euro, EURO and Euro are treated as the same answer.</p>
+  </section>
 
-<div class="question">2. Shia and Sunni belong to —
-<br><input type="radio" name="q2" value="1"> Islam
-<br><input type="radio" name="q2" value="0"> Hinduism
-<br><input type="radio" name="q2" value="0"> Buddhism
-</div>
-
-<div class="question">3. Benches in a church are called —
-<br><input type="radio" name="q3" value="1"> Pews
-<br><input type="radio" name="q3" value="0"> Bells
-<br><input type="radio" name="q3" value="0"> Lamps
-</div>
-
-<div class="question">4. Roman Catholics follow —
-<br><input type="radio" name="q4" value="1"> Christianity
-<br><input type="radio" name="q4" value="0"> Islam
-<br><input type="radio" name="q4" value="0"> Judaism
-</div>
-
-<div class="question">5. Parsis follow —
-<br><input type="radio" name="q5" value="1"> Zoroastrianism
-<br><input type="radio" name="q5" value="0"> Hinduism
-<br><input type="radio" name="q5" value="0"> Buddhism
-</div>
-
-<div class="question">6. Ban-Mitzvah belongs to —
-<br><input type="radio" name="q6" value="1"> Judaism
-<br><input type="radio" name="q6" value="0"> Hinduism
-<br><input type="radio" name="q6" value="0"> Islam
-</div>
-
-<div class="question">7. God is present in all beings is taught by —
-<br><input type="radio" name="q7" value="1"> Hinduism
-<br><input type="radio" name="q7" value="0"> Islam
-<br><input type="radio" name="q7" value="0"> Christianity
-</div>
-
-<div class="question">8. Jews mainly live in —
-<br><input type="radio" name="q8" value="1"> Israel
-<br><input type="radio" name="q8" value="0"> Pakistan
-<br><input type="radio" name="q8" value="0"> Nepal
-</div>
-
-<div class="question">9. Swahili is spoken in —
-<br><input type="radio" name="q9" value="1"> Kenya
-<br><input type="radio" name="q9" value="0"> Egypt
-<br><input type="radio" name="q9" value="0"> Iran
-</div>
-
-<div class="question">10. Maori is spoken in —
-<br><input type="radio" name="q10" value="1"> New Zealand
-<br><input type="radio" name="q10" value="0"> Australia
-<br><input type="radio" name="q10" value="0"> Sri Lanka
-</div>
-
-<div class="question">11. Spanish is spoken in —
-<br><input type="radio" name="q11" value="1"> Chile
-<br><input type="radio" name="q11" value="0"> Israel
-<br><input type="radio" name="q11" value="0"> Iran
-</div>
-
-<div class="question">12. Hamburger belongs to —
-<br><input type="radio" name="q12" value="1"> USA
-<br><input type="radio" name="q12" value="0"> Italy
-<br><input type="radio" name="q12" value="0"> Japan
-</div>
-
-<div class="question">13. Sushi belongs to —
-<br><input type="radio" name="q13" value="1"> Japan
-<br><input type="radio" name="q13" value="0"> China
-<br><input type="radio" name="q13" value="0"> Mexico
-</div>
-
-<div class="question">14. Baklava is from —
-<br><input type="radio" name="q14" value="1"> Turkey
-<br><input type="radio" name="q14" value="0"> India
-<br><input type="radio" name="q14" value="0"> USA
-</div>
-
-<div class="question">15. Nasi Goreng is from —
-<br><input type="radio" name="q15" value="1"> Indonesia
-<br><input type="radio" name="q15" value="0"> China
-<br><input type="radio" name="q15" value="0"> UAE
-</div>
-
-<br>
-<button type="button" onclick="check()">Submit Quiz</button>
-
-<div id="result"></div>
-
-</form>
+  <button class="submit" onclick="showScore()">Show My Score</button>
+  <div id="score"></div>
 </div>
 
 <script>
-function check(){
-    let total = 15;
-    let score = 0;
-    for(let i=1;i<=15;i++){
-        let q = document.querySelector('input[name="q'+i+'"]:checked');
-        if(q && q.value=="1"){
-            score++;
-        }
-    }
-    document.getElementById("result").innerHTML = 
-    "You scored " + score + " out of " + total;
-}
-</script>
+const mcqs = [
+ {q:"The balls kept in woollen clothes to protect them from moths and insects are made of:",o:["Naphthalene","Cotton","Sodium","Nylon"],a:0},
+ {q:"Which element is present in toothpaste to help make our gums healthy?",o:["Chlorine","Iodine","Fluorine","Calcium"],a:2},
+ {q:"The chemical used in vinegar to enhance its taste is:",o:["Lactic acid","Acetic acid","Tartaric acid","Acetone"],a:1},
+ {q:"A chemical commonly used in nail polish removers is:",o:["Sodium","Acetone","Chlorine","Tartaric acid"],a:1},
+ {q:"The black shining substance used in pencils is:",o:["Lead oxide","Phosphorus","Graphite","Coal"],a:2},
+ {q:"Which chemical is used in the preparation of shoe polish?",o:["Charcoal","Carbon black","Graphite","Coke"],a:1},
+ {q:"The sweetener commonly used by diabetic patients is:",o:["Sucrose","Glucose","Saccharine","Fruit sugar"],a:2},
+ {q:"Which chemical is used to remove stains from clothes?",o:["Phosphorus","Ammonia","Magnesium","Acetic acid"],a:1},
+ {q:"A non-metal used at the top of matchsticks to help the fire burn is:",o:["Sodium","Phosphorus","Fluorine","Magnesium"],a:1},
+ {q:"Which chemical is added in the preparation of cakes to make them soft and spongy?",o:["Sodium bicarbonate","Calcium carbonate","Magnesium chloride","Sodium carbonate"],a:0},
+ {q:"Which messaging service is used to send a combination of text, sounds, images and video?",o:["SMS","MMS","AMS","NMS"],a:1},
+ {q:"Which wireless transmission standard can replace cables between a laptop and a cellphone?",o:["Bluetooth","PDA","Red eye device","Multimedia device"],a:0},
+ {q:"Which instrument is used to see objects that are quite far off?",o:["Microscope","Periscope","Spectroscope","Binoculars"],a:3},
+ {q:"Which machine is used for dragging soil and clearing garbage?",o:["Road roller","Digger","Tractor","Computer"],a:1},
+ {q:"A concrete structure is made by mixing sand, cement and water with a:",o:["Projector","Digger","Concrete mixer","Escalator"],a:2}
+];
 
+const tfs = [
+ {q:"Pravda is the popular newspaper of Japan.",a:false},
+ {q:"Hitler hated Jews.",a:true},
+ {q:"The River Danube flows through Hungary.",a:true},
+ {q:"Bantus, Finns and Lapps are rivers.",a:false},
+ {q:"Rice is the staple food of Indonesia.",a:true}
+];
+
+const blanks = [
+ {q:"The four-letter currency commonly used in Europe is ________.",a:["euro"]},
+ {q:"Bantus, Finns and Lapps are ________.",a:["tribes"]},
+ {q:"The black shining substance used in pencils is ________.",a:["graphite"]},
+ {q:"A wireless transmission standard used between a laptop and a cellphone is ________.",a:["bluetooth"]},
+ {q:"The messaging service used to send text, sounds, images and video is ________.",a:["mms"]},
+ {q:"A chemical used in nail polish remover is ________.",a:["acetone"]},
+ {q:"The element present in toothpaste to help make gums healthy is ________.",a:["fluorine"]},
+ {q:"The sweetener used by diabetic patients is ________.",a:["saccharine"]},
+ {q:"An instrument used to see objects that are quite far off is ________.",a:["binoculars","periscope"]},
+ {q:"The balls kept in woollen clothes to protect them from moths are made of ________.",a:["naphthalene"]}
+];
+
+let score=0, answered=0, total=mcqs.length+tfs.length+blanks.length;
+
+function renderMCQ(){
+ const box=document.getElementById("mcqs");
+ mcqs.forEach((x,i)=>{
+   const div=document.createElement("div"); div.className="q";
+   div.innerHTML=`<div class="q-title">${i+1}. ${x.q}</div><div class="options"></div><div class="feedback"></div>`;
+   const opts=div.querySelector(".options"), fb=div.querySelector(".feedback");
+   x.o.forEach((opt,j)=>{
+     const b=document.createElement("button"); b.className="option"; b.textContent=opt;
+     b.onclick=()=>{
+       if(div.dataset.done) return;
+       div.dataset.done="1"; answered++;
+       if(j===x.a){b.classList.add("correct");fb.textContent="✓ Correct!";fb.style.color="#16803f";score++}
+       else{
+         b.classList.add("wrong");
+         opts.children[x.a].classList.add("correct");
+         fb.textContent="✗ Incorrect. The correct answer is: "+x.o[x.a];
+         fb.style.color="#b42323";
+       }
+       fb.classList.add("show");
+     };
+     opts.appendChild(b);
+   });
+   box.appendChild(div);
+ });
+}
+
+function renderTF(){
+ const box=document.getElementById("tfs");
+ tfs.forEach((x,i)=>{
+   const div=document.createElement("div");div.className="q tf";
+   div.innerHTML=`<div class="q-title">${i+1}. ${x.q}</div><div class="tf-grid"></div><div class="feedback"></div>`;
+   const grid=div.querySelector(".tf-grid"),fb=div.querySelector(".feedback");
+   [["True",true],["False",false]].forEach(([label,val])=>{
+     const b=document.createElement("button");b.className="option";b.textContent=label;
+     b.onclick=()=>{
+       if(div.dataset.done)return;
+       div.dataset.done="1";answered++;
+       if(val===x.a){b.classList.add("correct");fb.textContent="✓ Correct!";fb.style.color="#16803f";score++}
+       else{
+         b.classList.add("wrong");
+         [...grid.children].find(z=>z.textContent===(x.a?"True":"False")).classList.add("correct");
+         fb.textContent="✗ Incorrect. The correct answer is "+(x.a?"True.":"False.");
+         fb.style.color="#b42323";
+       }
+       fb.classList.add("show");
+     };
+     grid.appendChild(b);
+   });
+   box.appendChild(div);
+ });
+}
+
+function renderBlanks(){
+ const box=document.getElementById("blanks");
+ blanks.forEach((x,i)=>{
+   const div=document.createElement("div");div.className="q";
+   div.innerHTML=`<div class="q-title">${i+1}. ${x.q}</div>
+   <div class="blank"><input type="text" aria-label="Answer ${i+1}"><button class="check">Check</button></div>
+   <div class="result"></div>`;
+   const input=div.querySelector("input"),btn=div.querySelector(".check"),res=div.querySelector(".result");
+   const check=()=>{
+     if(div.dataset.done)return;
+     const value=input.value.trim().toLowerCase().replace(/\s+/g," ");
+     if(!value){res.textContent="Please enter an answer.";res.style.color="#a16207";return}
+     div.dataset.done="1";answered++;
+     const ok=x.a.some(ans=>value===ans.toLowerCase().trim());
+     if(ok){score++;res.textContent="✓ Correct!";res.style.color="#16803f";input.style.borderColor="#28a75c"}
+     else{res.textContent="✗ Incorrect. Correct answer: "+x.a[0].toUpperCase();res.style.color="#b42323";input.style.borderColor="#df4c4c"}
+   };
+   btn.onclick=check; input.addEventListener("keydown",e=>{if(e.key==="Enter")check()});
+   box.appendChild(div);
+ });
+}
+
+function showScore(){
+ const s=document.getElementById("score");s.style.display="block";
+ s.innerHTML=`You have answered <strong>${answered}</strong> out of <strong>${total}</strong> questions.<br>
+ Score: <strong>${score} / ${total}</strong>`;
+ s.scrollIntoView({behavior:"smooth",block:"center"});
+}
+renderMCQ();renderTF();renderBlanks();
+</script>
 </body>
 </html>
